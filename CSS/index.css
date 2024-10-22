@@ -1,0 +1,234 @@
+
+#games {
+    height: 98vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.games{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 20px;
+    margin: 10px;
+    height: auto;
+    width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*BJ*/
+    /*Tambien lo uso en el 3EnRaya*/
+.botones {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.card-value {
+    border-radius: 5px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    padding: 15px; 
+    font-size: 25px; 
+    color: black; 
+    display: inline-block; 
+    margin: 5px;
+
+}
+
+/*TTT*/
+:root {
+    --cell-size: 60px;
+    --mark-size: 50px;
+    --border-size: 5px;
+    --margin-element-size: 10px;
+    --padding-size: 5px;
+}
+.container_tictactoe{
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    padding: var(--padding-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cell.o,.cell.x{
+    cursor: not-allowed;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+
+.cell:nth-child(3n+1){
+    border-left: none;
+}
+
+.cell:nth-child(3n+3){
+    border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7){
+    border-bottom: none;
+}
+
+
+/*EQUIS TTT*/
+
+.cell.x::after,.cell.x::before{
+    background-color: black;
+}
+
+.cell.x::before,
+.cell.x::after,
+.container_tictactoe.x .cell:not(.x):not(.o):hover::before,
+.container_tictactoe.x .cell:not(.x):not(.o):hover::after {
+    content: "";
+    width: calc(var(--mark-size)*0.15);
+    height: var(--mark-size);
+    position: absolute;
+}
+
+/*PLACEHOLDER HOVER*/
+.container_tictactoe.x .cell:not(.x):not(.o):hover::before,
+.container_tictactoe.x .cell:not(.x):not(.o):hover::after,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::before,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::after {
+    background-color: rgb(217, 210, 223);
+}
+
+
+
+.cell.x::before,
+.container_tictactoe.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.container_tictactoe.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(-45deg);
+}
+
+/*CIRCULO TTT*/
+.cell.o::after,.cell.o::before{
+    background-color: black;
+}
+
+
+.cell.o::before,
+.cell.o::after,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::before,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::after{
+    content: "";
+    width: var(--mark-size);
+    height: var(--mark-size);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.cell.o::after,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::after{
+    width: calc(var(--mark-size)*0.7);
+    height: calc(var(--mark-size)*0.7);
+    background-color: rgb(255, 255, 255);
+}
+
+.cell.o::before,
+.container_tictactoe.o .cell:not(.x):not(.o):hover::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+#contadores3raya {
+    justify-content: center;
+    display: none;
+}
+
+#contadores1vs1{
+    border: var(--border-size) solid rgba(var(--bs-success-rgb));
+    border-radius: 10%;
+    margin: var(--margin-element-size);
+    padding: var(--padding-size);;
+
+}
+
+#contadoresvsBOT{
+    border: var(--border-size) solid rgba(var(--bs-warning-rgb));
+    border-radius: 10%;
+    margin: var(--margin-element-size);
+    padding: var(--padding-size);
+}
+
+
+#mensajefinal{
+    font-size: medium;
+    font-weight: bold;
+    padding: var(--padding-size);
+    display: flex;
+    justify-content: center;
+}
+/*----------------------------------*/
+/*JUEGO DE PAREJAS*/
+
+#container_game_pairs {
+    height: auto;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+[data-card]{
+    border-radius: 5px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 25px; 
+    font-size: 30px; 
+    display: inline-block;
+    margin: 5px;
+    width: 90px;
+    height: 100px;
+    text-align: center;
+    transition: background-color 0.5s, color 0.5s ease;
+}
+
+
+[data-card="face"] {
+    color: rgb(0, 0, 0);
+    background-color: white;
+}
+
+[data-card="back"] {
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+
+
+
+
+
+
