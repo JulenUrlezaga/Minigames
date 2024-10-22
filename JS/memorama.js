@@ -25,27 +25,29 @@ function botones () {
     
     document.getElementById("btn20").addEventListener("click", function(){
         resetGame();
+        
         console.log("-20-");
         containerparejas.style.display="flex";
         constanteparaelborde.style.border='var(--border-size) solid rgba(var(--bs-info-rgb))';
         contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-info-rgb))';
         modojuego="20cards";
         contparejasdiv.style.display="block";
-        cartarandomparejas();
-        verifcasillas();
         
+        verifcasillas();
+        cartarandomparejas();
     });
     document.getElementById("btn40").addEventListener("click", function(){
         resetGame();
+        
         console.log("-40-");
         containerparejas.style.display="flex";
         constanteparaelborde.style.border='var(--border-size) solid rgba(var(--bs-warning-rgb))';
         contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-warning-rgb))';
         modojuego="40cards";
         contparejasdiv.style.display="block";
-        cartarandomparejas();
+        
         verifcasillas();
-
+        cartarandomparejas();
     });
     document.getElementById("btn60").addEventListener("click", function(){
         resetGame();
@@ -55,8 +57,8 @@ function botones () {
         contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-danger-rgb))';
         modojuego="60cards";
         contparejasdiv.style.display="block";
-        cartarandomparejas();
         verifcasillas();
+        cartarandomparejas();
     });
 
 }
@@ -79,13 +81,11 @@ function resetGame() {
     cartasparejaselegidas = [];
     contadorclicks = 0;
     parejas = 0;
-    fallos = 0
+    fallos = 0;
+    numerosUsados.length = 0;
     contparejas.innerText = parejas;
     contfails.innerText = fallos;
 }
-
-
-
 
 function cartarandomparejas() {
     containerparejas.innerHTML = "";

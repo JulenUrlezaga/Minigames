@@ -7,10 +7,18 @@ var wincount = 0;
 var losecount = 0;
 var drawcount = 0;
 var mensaje = document.getElementById("mensaje");
+const containerbj = document.getElementById("containerblackjack");
 const hit = document.getElementById("hit");
 const stay = document.getElementById("stay");
+const play = document.getElementById("play");
 
-let vivo = true; 
+let vivo = true;
+
+play.addEventListener("click",function(){
+    console.log("play");
+    containerbj.style.display="block";
+    play.style.display="none";
+})
 
 function cartarandom() {
     var randomNumero = Math.floor(Math.random() * 13) + 1;

@@ -13,7 +13,8 @@
         <!-- Blackjack -->
         <div id="blackjack" class="games">
             <h1>BLACKJACK</h1>
-
+            <button id="play" class="btn btn-success">PLAY</button>
+            <div id="containerblackjack">
             <p id="victoriasbj">WINS: <span id="contador-victorias">0</span></p>
             <p id="derrotasbj">LOSES: <span id="contador-derrotas">0</span></p>
             <p id="empatesbj">DRAWS: <span id="contador-empates">0</span></p>
@@ -36,6 +37,7 @@
                 <button id="stay" class="btn btn-danger">STAY</button>
             </div>
         </div>
+        </div>
         <!-- 3 en raya -->
         <div id="tresenraya" class="games">
             <h1>TRES EN RAYA</h1>
@@ -44,11 +46,9 @@
                 <button id="1vs1" class="btn btn-success">1 vs 1</button>
                 <button id="vsBot" class="btn btn-warning">vs BOT (noob)</button>
             </div>
-
             <p id="mensajefinal"></p>
-
             <div class="container_tictactoe" id="container_tictactoe">
-                
+                         
             </div> 
 
             <div id ="contadores3raya">
@@ -67,7 +67,7 @@
         <!-- PAREJAS -->
         <div id="parejascartas" class="games">
             <h1>PAIRS</h1>
-            <div id="botones">
+            <div class="botones">
                 <button id="btn20" class="btn btn-info">10 pairs</button>
                 <button id="btn40" class="btn btn-warning">20 pairs</button>
                 <button id="btn60" class="btn btn-danger">30 pairs</button>
@@ -84,12 +84,21 @@
             </div>
             
         </div>
+        <div id="flappyrock" class="games">
+            <h1>FLAPPYROCK</h1>
+            <button id="playfrock" class="btn btn-success">PLAY</button>
+            <canvas id="board">
+
+            </canvas>
+
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!--<script src='index.js'></script>-->
     <script src='../JS/memorama.js'></script>
     <script src='../JS/tictactoe.js'></script>
     <script src='../JS/blackjack.js'></script>
+    <script src='../JS/flappyrock.js'></script>
 </body>
 
 </html>

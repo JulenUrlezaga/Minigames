@@ -15,13 +15,17 @@
     padding: 20px;
     margin: 10px;
     height: auto;
-    width: 500px;
+    width: var(--width-container-size);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /*BJ*/
     /*Tambien lo uso en el 3EnRaya*/
+
+#containerblackjack {
+    display: none;
+}
 .botones {
     display: flex;
     justify-content: space-around;
@@ -46,6 +50,7 @@
     --border-size: 5px;
     --margin-element-size: 10px;
     --padding-size: 5px;
+    --width-container-size:500px;
 }
 .container_tictactoe{
     box-sizing: border-box;
@@ -203,6 +208,10 @@
     justify-content: space-evenly;
 }
 
+#contadorespairs {
+    display: none;
+}
+
 [data-card]{
     border-radius: 5px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -226,6 +235,22 @@
     color: rgb(255, 255, 255);
     background-color: black;
 }
+
+/*----------------------------------*/
+/*FLAPPY ROCK*/
+
+/*#flappyrock {
+    
+text-align: center;
+}*/
+
+#board {
+    display: none;
+    background-image: url(../IMGFlappyRock/background.png);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
 
 
 
