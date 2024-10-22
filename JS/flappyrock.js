@@ -63,7 +63,13 @@ if(!startgame){
 
 requestAnimationFrame(update);
 
-setInterval(placepipes, 2000);
+
+/*if (score<5){
+    setInterval(placepipes, 2000);
+}
+if(score>=5){
+    setInterval(placepipes, 500);
+}*/
 
 document.addEventListener("keydown", moveRock);
 
