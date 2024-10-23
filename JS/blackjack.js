@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", empezarjuego);
 var cartasjugador = [];
 var cartasdealer = [];
 var suma = 0;
@@ -14,8 +13,11 @@ const play = document.getElementById("play");
 
 let vivo = true;
 
+
+
 play.addEventListener("click",function(){
     console.log("play");
+    empezarjuego();
     containerbj.style.display="block";
     play.style.display="none";
 })
