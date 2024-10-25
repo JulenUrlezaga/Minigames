@@ -39,6 +39,14 @@ let hart = {
     height : 120,
 }
 
+let bullethart = {
+    x : (boardwidth/8) * 6,
+    y : boardheight/2,
+    width : 80,
+    height : 50,
+}
+
+
 let pipeArray = [];
 let pipewidth = 64;
 let pipeheight = 512;
@@ -48,6 +56,8 @@ let pipeY = 0;
 let toppipeimg;
 let bottompipeimg;
 
+const pipesneeded = 10;
+
 let velocityX = -2; //pipes
 let velocityY = 0;  //rock
 let velocityFist = 12; //fist
@@ -56,11 +66,13 @@ let velocityHartBullet = 10;//Hart Bullet
 let gravity = 0.4 //gravity
 let gameover = false;
 let startgame = false;
+let finishgame = false;
+let intervalChanged = false;
 let score = 0;
 let kontPipes = 0;
-let pipesneeded = 20;
 let hartDirection = 1;
-let livesHart = 15;
+let livesHart = 5;
+let phasesHart = 1;
 let newlevel = false;
 let pipeInterval;
 let stopPipes = false;
@@ -99,13 +111,17 @@ if(!startgame){
 requestAnimationFrame(update);
 
 function startInterval() {
+    console.log(`Llamando a startInterval con kontPipes: ${kontPipes} y pipesneeded / 2: ${pipesneeded / 2}`);
     if (pipeInterval) {
         clearInterval(pipeInterval);  
     }
-    if (kontPipes < 5) {
+    if (Math.floor(kontPipes) < (pipesneeded / 2)-2) {
         pipeInterval = setInterval(placepipes, 2000);
-    }else{
+        console.log("primer interval");
+    }else if (!intervalChanged) { // Cambiar a segundo intervalo solo una vez
         pipeInterval = setInterval(placepipes, 1500); 
+        console.log("segundo interval");
+        intervalChanged = true;  // Marcar que ya hemos cambiado el intervalo
     }
 }
 
@@ -116,7 +132,7 @@ document.addEventListener("keydown", moveRock);
 
 function update() {
     requestAnimationFrame(update);
-    if(gameover || !startgame){
+    if(gameover || !startgame || finishgame){
         return;
     }
 
@@ -151,7 +167,42 @@ function update() {
         if (detectImpact(fist, hart)) {
             console.log("BOOM");
             fistboolean = false; 
+            livesHart--;
             fist.x = rock.x + rock.width;
+        }
+
+   
+        if (livesHart <= 0 && !finishgame) {
+            
+
+        } 
+
+        
+        if(livesHart<=0 && !finishgame){
+            livesHart = 10;
+            imghart.src = "../IMGFlappyRock/KevinHartHeadTilted.png";
+            velocityYHart += 3;
+            hart.width -= hart.width * 0.1;
+            hart.height -= hart.height * 0.1;
+            score += 5;
+            phasesHart++;
+        }
+
+        if (phasesHart>=3){
+            imgrock.src = "../IMGFlappyRock/Dwayne_JohnsonTrunkSaiyan.png";
+
+            rock.width = 70;
+            rock.height = 85;
+
+            imgfist.src = "../IMGFlappyRock/bolatrunks.png";
+            fist.width = 20;
+
+            velocityFist = 20;
+        }
+
+        if (score===(pipesneeded*3)){
+            imghart.src = "../IMGFlappyRock/KevinHartHeadTiltedLost.png";
+            finishgame=true;
         }
 
         if(fist.x>board.width){
@@ -176,8 +227,8 @@ function update() {
         }
     }
 
-    if (kontPipes >= 8 && !newlevel) {  
-        console.log("newlevel");
+    if (Math.floor(kontPipes) >= (pipesneeded / 2) - 2 && !newlevel) {
+        console.log(`NEWLEVEL-> Iniciando nuevo nivel con kontPipes: ${kontPipes}`);
         newlevel=true;
 
         toppipeimg = new Image();
@@ -189,22 +240,33 @@ function update() {
         startInterval();
     }
 
-    if (kontPipes==10){
+    if (Math.floor(kontPipes) === pipesneeded / 2) {
         board.style.backgroundImage='url(../IMGFlappyRock/backgroundRed.png)';
         board.style.transition = 'background-image 0.5s ease-in-out';
     }
 
-    if (kontPipes==18){
+    if (kontPipes==(pipesneeded-2)){
         stopPipes=true;
     }
 
     if (stopPipes && kontPipes==pipesneeded && !gameover){
         if(ctrlmessageboolean){
-            context.fillText("Disparar: CTRL",5 , 90);
+            context.fillText("Shoot FIST: CTRL",5 , 90);
+        }else {
+            context.fillText("Phase: "+phasesHart,5 , 90);
+        }
+
+        if (finishgame){
+            context.clearRect(5, 50, 300, 50);
         }
         showfist();
         showhart();
-        //moveHart();
+
+        let text = "/";
+        let barras = text.repeat(livesHart);
+
+        context.fillText(barras,(boardwidth/2), 45);
+
         document.addEventListener("keydown", shootfist);
         if(gameover){
             resetGame();
@@ -222,6 +284,10 @@ function update() {
     if (gameover){
         context.fillText("GAME OVER",5 ,90);
     }
+
+    if(finishgame){
+        context.fillText("YOU WIN",5 ,90); 
+    }
 }
 
 function resetGame() {
@@ -229,12 +295,26 @@ function resetGame() {
     pipeArray = [];  
     score = 0;
     kontPipes = 0;
-    startgame = true; 
+    startgame = true;
+    livesHart = 5;
+    velocityYHart = 5;
+    velocityFist = 12;
+    phasesHart = 1;
     newlevel = false; 
-    gameover = false; 
+    gameover = false;
+    finishgame = false;
     stopPipes = false;
+    intervalChanged = false;
     fistboolean = false;
     ctrlmessageboolean=true;
+
+    rock.width = 40;
+    rock.height = 45;
+    fist.width = 40;
+    hart.width = 100,
+    hart.height = 120,
+
+    
 
     document.removeEventListener("keydown", shootfist);
 
@@ -242,6 +322,9 @@ function resetGame() {
     toppipeimg.src = "../IMGFlappyRock/toppipe.png";
     bottompipeimg.src = "../IMGFlappyRock/bottompipe.png";  
     board.style.backgroundImage='url(../IMGFlappyRock/background.png)';
+    imghart.src = "../IMGFlappyRock/KevinHartHead.png";
+    imgrock.src = "../IMGFlappyRock/Dwayne_Johnson.png";
+    imgfist.src="../IMGFlappyRock/fist.png"
     board.style.transition = 'none'; 
     startInterval();   
 }
@@ -280,7 +363,7 @@ function placepipes() {
 function moveRock(e){
     let kontspace = 0;
     if (e.code == "Space"){
-        if (gameover) {
+        if (gameover || finishgame) {
             resetGame();
         }
         velocityY = -6;
@@ -300,7 +383,7 @@ function detectCollision(a,b){
            a.y + a.height > b.y; 
 }
 
-// A-> FIST B-> HART
+// C-> FIST D-> HART
 function detectImpact(c,d){
     return  c.x < d.x + d.width &&  // El puño está a la izquierda del borde derecho de Hart
             c.x + c.width > d.x &&  // El puño está a la derecha del borde izquierdo de Hart
@@ -322,8 +405,12 @@ function shootfist(e){
         fistboolean = true;
         if(fistboolean){ 
             console.log("ctrl");
-            context.clearRect(5, 60, 300, 40);
+            context.clearRect(0, 60, boardwidth, 40);
             ctrlmessageboolean=false;
+        }
+
+        if(finishgame){
+            resetGame();
         }
     }
 }

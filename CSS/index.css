@@ -239,11 +239,6 @@
 /*----------------------------------*/
 /*FLAPPY ROCK*/
 
-/*#flappyrock {
-    
-text-align: center;
-}*/
-
 #board {
     display: none;
     background-image: url(../IMGFlappyRock/background.png);
