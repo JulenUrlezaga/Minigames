@@ -2,12 +2,12 @@ var casillasparejascant;
 var parejascant;
 var modojuego;
 const containerparejas = document.getElementById('container_game_pairs');
-const constanteparaelborde = document.getElementById("parejascartas");
 const numerosUsados = [];
 var contparejasdiv = document.getElementById("contadorespairs");
 var contparejastries = document.getElementById("pairstriescontador");
 var contparejas = document.getElementById("contpairs");
 var contfails = document.getElementById("contfails");
+var playpairs = document.getElementById("playpairs");
 
 var cartasparejas = [];
 var cartasparejaselegidas = [];
@@ -23,57 +23,20 @@ botones();
 
 function botones () {
     
-    document.getElementById("btn20").addEventListener("click", function(){
+    playpairs.addEventListener("click", function(){
         resetGame();
         
-        console.log("-20-");
         containerparejas.style.display="flex";
-        constanteparaelborde.style.border='var(--border-size) solid rgba(var(--bs-info-rgb))';
-        contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-info-rgb))';
-        modojuego="20cards";
+        casillasparejascant=20;
+        parejascant=10;
         contparejasdiv.style.display="block";
         
-        verifcasillas();
-        cartarandomparejas();
-    });
-    document.getElementById("btn40").addEventListener("click", function(){
-        resetGame();
-        
-        console.log("-40-");
-        containerparejas.style.display="flex";
-        constanteparaelborde.style.border='var(--border-size) solid rgba(var(--bs-warning-rgb))';
-        contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-warning-rgb))';
-        modojuego="40cards";
-        contparejasdiv.style.display="block";
-        
-        verifcasillas();
-        cartarandomparejas();
-    });
-    document.getElementById("btn60").addEventListener("click", function(){
-        resetGame();
-        console.log("-60-");
-        containerparejas.style.display="flex";
-        constanteparaelborde.style.border='var(--border-size) solid rgba(var(--bs-danger-rgb))';
-        contparejastries.style.border= 'var(--border-size) solid rgba(var(--bs-danger-rgb))';
-        modojuego="60cards";
-        contparejasdiv.style.display="block";
-        verifcasillas();
+        playpairs.style.display="none";
         cartarandomparejas();
     });
 
 }
-function verifcasillas(){
-    if(modojuego=="20cards"){
-        casillasparejascant=20;
-        parejascant=10;
-    }else if(modojuego=="40cards"){
-        casillasparejascant=40;
-        parejascant=20;
-    }else if(modojuego=="60cards"){
-        casillasparejascant=60;
-        parejascant=30;
-    }
-}
+
 
 function resetGame() {
     containerparejas.innerHTML = "";
