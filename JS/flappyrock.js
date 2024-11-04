@@ -62,12 +62,13 @@ let velocityX = -2; //pipes
 let velocityY = 0;  //rock
 let velocityFist = 12; //fist
 let velocityYHart = 5;//Hart head
-let velocityHartBullet = 10;//Hart Bullet
+let velocityHartBullet = 3;//Hart Bullet
 let gravity = 0.4 //gravity
 let gameover = false;
 let startgame = false;
 let finishgame = false;
 let intervalChanged = false;
+let hartbulletStarted = false;
 let score = 0;
 let kontPipes = 0;
 let hartDirection = 1;
@@ -91,6 +92,9 @@ imgfist.src = "../IMGFlappyRock/fist.png";
 
 imghart = new Image();
 imghart.src = "../IMGFlappyRock/KevinHartHead.png";
+
+imghartbullet = new Image();
+imghartbullet.src = "../IMGFlappyRock/balabill.png";
 
 
 toppipeimg = new Image();
@@ -118,10 +122,10 @@ function startInterval() {
     if (Math.floor(kontPipes) < (pipesneeded / 2)-2) {
         pipeInterval = setInterval(placepipes, 2000);
         console.log("primer interval");
-    }else if (!intervalChanged) { // Cambiar a segundo intervalo solo una vez
+    }else if (!intervalChanged) { 
         pipeInterval = setInterval(placepipes, 1500); 
         console.log("segundo interval");
-        intervalChanged = true;  // Marcar que ya hemos cambiado el intervalo
+        intervalChanged = true;
     }
 }
 
@@ -160,7 +164,7 @@ function update() {
  
     if(!fistboolean){
         fist.x = rock.x + rock.width;  // Para que el puño esté pegado a Rock
-        fist.y = rock.y + (rock.height / 2); - (fist.height / 2); // Centrar el puño (respecto a Rock)
+        fist.y = rock.y + (rock.height / 2) - (fist.height / 2); // Centrar el puño (respecto a Rock)
     }else {
         fist.x += velocityFist;
 
@@ -171,45 +175,62 @@ function update() {
             fist.x = rock.x + rock.width;
         }
 
-   
-        if (livesHart <= 0 && !finishgame) {
-            
-
-        } 
-
-        
-        if(livesHart<=0 && !finishgame){
-            livesHart = 10;
-            imghart.src = "../IMGFlappyRock/KevinHartHeadTilted.png";
-            velocityYHart += 3;
-            hart.width -= hart.width * 0.1;
-            hart.height -= hart.height * 0.1;
-            score += 5;
-            phasesHart++;
-        }
-
-        if (phasesHart>=3){
-            imgrock.src = "../IMGFlappyRock/Dwayne_JohnsonTrunkSaiyan.png";
-
-            rock.width = 70;
-            rock.height = 85;
-
-            imgfist.src = "../IMGFlappyRock/bolatrunks.png";
-            fist.width = 20;
-
-            velocityFist = 20;
-        }
-
-        if (score===(pipesneeded*3)){
-            imghart.src = "../IMGFlappyRock/KevinHartHeadTiltedLost.png";
-            finishgame=true;
-        }
-
         if(fist.x>board.width){
             fistboolean=false;
             fist.x = rock.x + rock.width;
         }
     }
+
+    if(livesHart<=0 && !finishgame){
+        livesHart = 10;
+        imghart.src = "../IMGFlappyRock/KevinHartHeadTilted.png";
+        velocityYHart += 3;
+        hart.width -= hart.width * 0.1;
+        hart.height -= hart.height * 0.1;
+        score += 5;
+        phasesHart++;
+    }
+
+
+    if (phasesHart>=3){
+        imgrock.src = "../IMGFlappyRock/Dwayne_JohnsonTrunkSaiyan.png";
+
+        rock.width = 70;
+        rock.height = 85;
+
+        imgfist.src = "../IMGFlappyRock/bolatrunks.png";
+        fist.width = 20;
+
+        velocityFist = 20;
+
+        bullethart.width = 40;
+        bullethart.height = 25;
+        velocityHartBullet = 6;
+    }
+
+    if (score===(pipesneeded*3)){
+        imghart.src = "../IMGFlappyRock/KevinHartHeadTiltedLost.png";
+        finishgame=true;
+    }
+
+    if (phasesHart >= 2 && !hartbulletStarted) {
+        hartbulletStarted = true;  // Marcar como activado
+        bullethart.x = hart.x - hart.width;
+        bullethart.y = hart.y + (hart.height / 2) - (bullethart.height / 2);
+    }
+
+    if (detectImpactBullet(bullethart, rock)) {
+        console.log("BOOM");
+        gameover=true;
+        //resetGame();
+    }
+
+    if (hartbulletStarted) {
+        shoothartbullet();
+        showhartbullet();
+    }
+
+    
 
     //FOR para dibujar las tuberias
     for (i = 0; i < pipeArray.length; i++){
@@ -299,6 +320,7 @@ function resetGame() {
     livesHart = 5;
     velocityYHart = 5;
     velocityFist = 12;
+    velocityHartBullet = 3;
     phasesHart = 1;
     newlevel = false; 
     gameover = false;
@@ -307,16 +329,22 @@ function resetGame() {
     intervalChanged = false;
     fistboolean = false;
     ctrlmessageboolean=true;
+    hartbulletStarted = false;
+
 
     rock.width = 40;
     rock.height = 45;
     fist.width = 40;
-    hart.width = 100,
-    hart.height = 120,
-
-    
+    hart.width = 100;
+    hart.height = 120;
+    bullethart.height = 50;
+    bullethart.width = 80;
+ 
 
     document.removeEventListener("keydown", shootfist);
+
+    bullethart.x = hart.x - hart.width;
+    bullethart.y = hart.y + (hart.height / 2) - (bullethart.height / 2);
 
 
     toppipeimg.src = "../IMGFlappyRock/toppipe.png";
@@ -324,7 +352,8 @@ function resetGame() {
     board.style.backgroundImage='url(../IMGFlappyRock/background.png)';
     imghart.src = "../IMGFlappyRock/KevinHartHead.png";
     imgrock.src = "../IMGFlappyRock/Dwayne_Johnson.png";
-    imgfist.src="../IMGFlappyRock/fist.png"
+    imgfist.src="../IMGFlappyRock/fist.png";
+    imghartbullet.src="../IMGFlappyRock/balabill.png"
     board.style.transition = 'none'; 
     startInterval();   
 }
@@ -391,12 +420,33 @@ function detectImpact(c,d){
             c.y + c.height > d.y;
 }
 
+// C-> FIST D-> HART
+function detectImpactBullet(e,f){
+    return  e.x < f.x + f.width &&  // La bala está a la derecha del borde derecho de Rock
+            e.x + e.width > f.x &&  // La bala está a la izuqierda del borde izquierdo de Rock
+            e.y < f.y + f.height && // La bala está por encima del borde inferior de Hart
+            e.y + e.height > f.y;
+}
+
 function showfist(){
     context.drawImage(imgfist,fist.x,fist.y,fist.width,fist.height);
 }
 
 function showhart(){
     context.drawImage(imghart,hart.x,hart.y,hart.width,hart.height);
+}
+
+function showhartbullet(){
+    context.drawImage(imghartbullet,bullethart.x,bullethart.y,bullethart.width,bullethart.height);
+}
+
+function shoothartbullet(){
+    bullethart.x -= velocityHartBullet;
+
+    if (bullethart.x + bullethart.width < 0) {
+        bullethart.x = hart.x - hart.width; // Reiniciar la posición x de la bala
+        bullethart.y = hart.y + (hart.height / 2) - (bullethart.height / 2); // Ajuste de posición y
+    }
 }
 
 function shootfist(e){
