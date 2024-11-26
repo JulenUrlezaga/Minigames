@@ -245,6 +245,12 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+#fueguitos{
+    display: none;
+    z-index: 1;
+}
+
+
 
 
 

@@ -1,4 +1,15 @@
 let board = document.getElementById("board");
+let fueguitos = document.getElementById("fueguitos");
+
+for (let i = 0; i < 5; i++) {
+    const img = document.createElement("img");
+    img.src = "./IMGFlappyRock/fire.gif";
+    img.alt = "firegif";
+    img.style.height = "90px";
+    fueguitos.appendChild(img); 
+}
+
+
 let botonesflappyrock = document.getElementById("botonesflappyrock");
 
 let boton = document.getElementById("playfrock20");
@@ -16,7 +27,7 @@ boton2.addEventListener("click",function(){
     botonesflappyrock.style.display="none";
 });
 
-boton2.addEventListener("click",function(){
+boton3.addEventListener("click",function(){
     board.style.display="block";
     botonesflappyrock.style.display="none";
 });
@@ -59,6 +70,13 @@ let bullethart = {
     y : boardheight/2,
     width : 80,
     height : 50,
+}
+
+let fire = {
+    x : boardwidth/8,
+    y : boardheight,
+    width : 40,
+    height : 40,
 }
 
 
@@ -154,6 +172,8 @@ function update() {
     if(gameover || !startgame || finishgame){
         return;
     }
+
+    
 
     context.clearRect(0, 0, board.width, board.height);
 
@@ -279,6 +299,7 @@ function update() {
     if (Math.floor(kontPipes) === pipesneeded / 2) {
         board.style.backgroundImage='url(../IMGFlappyRock/backgroundRed.png)';
         board.style.transition = 'background-image 0.5s ease-in-out';
+        fueguitos.style.display = 'block';
     }
 
     if (kontPipes==(pipesneeded-2)){
