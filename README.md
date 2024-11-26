@@ -2,4 +2,8 @@
 - (TTT) Bot avanzado
 - (MMRM) Boton reset parejas
 - (FLPRCK)Botones para administrar la cantidad de tuberias
-- (LCAT) Añadir el juego de longcat
+- (LCAT) Añadir el juego de longcat (longpoop)
+- (TETRS) Añadir tetris
+- (BILLR) Añadir billar
+- (BRCKBRKR) Añadir brick breaker
+- (PNBL) Añadir pinball
