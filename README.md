@@ -1,3 +1,5 @@
 - (BJ) Poder splitear parejas
 - (TTT) Bot avanzado
 - (MMRM) Boton reset parejas
+- (FLPRCK)Poder escribir cuantas tuberias quiere el usuario
+- (LCAT) Añadir el juego de longcat
