@@ -19,6 +19,8 @@ var fallos = 0;
 const face = "face";
 const back = "back";
 
+
+
 botones();
 
 function botones () {
@@ -38,17 +40,29 @@ function botones () {
 }
 
 
+
+
 function resetGame() {
-    containerparejas.innerHTML = "";
-    cartasparejas = [];
-    cartasparejaselegidas = [];
-    contadorclicks = 0;
-    parejas = 0;
-    fallos = 0;
-    numerosUsados.length = 0;
-    contparejas.innerText = parejas;
-    contfails.innerText = fallos;
+    console.log("Reseteando juego...");
+    containerparejas.style.pointerEvents = "none";
+
+    setTimeout(() => {
+        containerparejas.innerHTML = "";
+        cartasparejas = [];
+        cartasparejaselegidas = [];
+        contadorclicks = 0;
+        parejas = 0;
+        fallos = 0;
+        numerosUsados.length = 0;
+        contparejas.innerText = parejas;
+        contfails.innerText = fallos;
+
+        cartarandomparejas();
+        containerparejas.style.pointerEvents = "auto";
+    }, 500);
 }
+
+
 
 function cartarandomparejas() {
     containerparejas.innerHTML = "";
@@ -124,6 +138,7 @@ function comprobarPareja() {
     }
 
     if (parejas==parejascant){
+        console.log("Todas las parejas encontradas. Reiniciando juego...");
         setTimeout(resetGame,500);
     }
 

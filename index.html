@@ -45,6 +45,7 @@
             <div class="botones">
                 <button id="1vs1" class="btn btn-success">1 vs 1</button>
                 <button id="vsBot" class="btn btn-warning">vs BOT (noob)</button>
+                <button id="vsBot" class="btn btn-primary" disabled>vs BOT (PRO)</button>
             </div>
             <p id="mensajefinal"></p>
             <div class="container_tictactoe" id="container_tictactoe">
@@ -68,28 +69,26 @@
         <div id="parejascartas" class="games">
             <h1>PAIRS</h1>
             <button id="playpairs" class="btn btn-success">PLAY</button>
-            <!-- <div class="botones">
-                <button id="btn20" class="btn btn-info">10 pairs</button>
-                <button id="btn40" class="btn btn-warning">20 pairs</button>
-                <button id="btn60" class="btn btn-danger">30 pairs</button>
-            </div> -->
             <div id="container_game_pairs">
-                
-
+        
             </div>
             <div id="contadorespairs">
                 <div id="pairstriescontador">
                     <div>PAIRS: <span id="contpairs"></span></div>
                     <div>FAILS: <span id="contfails"></span></div>
-                </div>          
+                </div>       
             </div>
             
         </div>
         <div id="flappyrock" class="games">
             <h1>FLAPPYROCK</h1>
-            <button id="playfrock" class="btn btn-success">PLAY</button>
+            <div class="botones" id="botonesflappyrock">
+                <button id="playfrock20" class="btn btn-success">20</button>
+                <button id="playfrock30" class="btn btn-warning">30</button>
+                <button id="playfrock50" class="btn btn-danger">50</button>
+            </div>
             <canvas id="board">
-
+            
             </canvas>
 
         </div>

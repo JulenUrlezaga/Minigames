@@ -1,9 +1,24 @@
 let board = document.getElementById("board");
-let boton = document.getElementById("playfrock")
+let botonesflappyrock = document.getElementById("botonesflappyrock");
+
+let boton = document.getElementById("playfrock20");
+let boton2 = document.getElementById("playfrock30");
+let boton3 = document.getElementById("playfrock50");
+let pipesneeded = 10;
 
 boton.addEventListener("click",function(){
     board.style.display="block";
-    boton.style.display="none";
+    botonesflappyrock.style.display="none";
+});
+
+boton2.addEventListener("click",function(){
+    board.style.display="block";
+    botonesflappyrock.style.display="none";
+});
+
+boton2.addEventListener("click",function(){
+    board.style.display="block";
+    botonesflappyrock.style.display="none";
 });
 
 let context = board.getContext("2d");
@@ -56,7 +71,7 @@ let pipeY = 0;
 let toppipeimg;
 let bottompipeimg;
 
-const pipesneeded = 10;
+
 
 let velocityX = -2; //pipes
 let velocityY = 0;  //rock
@@ -81,6 +96,7 @@ let hartappeared = false;
 let fistboolean = false;
 let ctrlmessageboolean = true;
 
+
 imgrock = new Image();
 imgrock.src = "../IMGFlappyRock/Dwayne_Johnson.png";
 imgrock.onload = function(){
@@ -102,7 +118,6 @@ toppipeimg.src = "../IMGFlappyRock/toppipe.png";
 
 bottompipeimg = new Image();
 bottompipeimg.src = "../IMGFlappyRock/bottompipe.png";
-
 
 
 if(!startgame){
@@ -457,10 +472,12 @@ function shootfist(e){
             console.log("ctrl");
             context.clearRect(0, 60, boardwidth, 40);
             ctrlmessageboolean=false;
+
+            if(gameover || finishgame){
+                resetGame();
+            }
         }
 
-        if(finishgame){
-            resetGame();
-        }
+        
     }
 }
